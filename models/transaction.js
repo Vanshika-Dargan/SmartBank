@@ -13,7 +13,8 @@ Transaction.init(
         autoIncrement:true
        },
        type:{
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM,
+        validate:["depost","withdraw"],
         allowNull:false
        },
        amount:{
