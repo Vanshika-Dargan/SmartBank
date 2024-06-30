@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
     "test": "jest"
   },
   "author": "Vanshika Dargan",
@@ -14,5 +16,8 @@
     "jest-cli": "^29.7.0",
     "mysql2": "^3.10.1",
     "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }

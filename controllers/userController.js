@@ -1,6 +1,6 @@
-const { sequelize } = require("../app/services/dbConnect")
-const User =require('../app/models/user')
-const Account=require('../app/models/account')
+const { sequelize } = require("../services/dbConnect")
+const User =require('../models/user')
+const Account=require('../models/account')
 
 
 
@@ -8,8 +8,8 @@ const Account=require('../app/models/account')
 
 
 
-async function createUserAndAssignAccount(userName,accountCurrency,intialDeposit=0){
-
+const createUserAndAssignAccount=async(req,res)=>{
+   const {userName,accountCurrency,intialDeposit}=req.body;
     try{
     const result=await sequelize.transaction(async(t)=>{
 
@@ -25,7 +25,9 @@ async function createUserAndAssignAccount(userName,accountCurrency,intialDeposit
 
         return {userId:user.id,accountId:account.id}
     });
-    return result;
+    return res.status(201).json({
+        result
+    })
     }
 
     catch(error){
