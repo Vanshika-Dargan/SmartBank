@@ -1,0 +1,17 @@
+{
+  "name": "smartbank",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Vanshika Dargan",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "jest": "^29.7.0",
+    "jest-cli": "^29.7.0",
+    "mysql2": "^3.10.1",
+    "sequelize": "^6.37.3"
+  }
+}
