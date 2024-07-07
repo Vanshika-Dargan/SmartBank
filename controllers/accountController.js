@@ -1,5 +1,6 @@
 const Account = require("../models/account");
 const Transaction = require("../models/transaction");
+const { transactionInQueue } = require("../services/queueService");
 
 
 
@@ -12,9 +13,27 @@ if(!account_id){
     })
 }
 
+const deposited=await Transaction.sum("amount",{
+    where:{
+        account_id,type:'deposit'
+    }
+}) || 0;
+
+const withdrawn=await Transaction.sum("amount",{
+    where:{
+        account_id,
+        type:'withdraw'
+    }
+}) || 0;
+
+const balance=deposited-withdrawn;
 
 
-res.json({})
+const pending=transactionInQueue(account_id);
+
+balance+=pending;
+const account = await Account.findByPk(account_id);
+res.json({balance:balance,currency:account.currency});
 }
 
 

@@ -45,3 +45,26 @@ queue.process('record_and_process_transaction',async (job)=>{
 const res=await queue.isReady();
 
 }
+
+
+async function transactionInQueue(account_id)
+{
+const pendingJobs=await queue.getJobs(['waiting','active']);
+let pendingDeposit=0;
+let pendingWithdraw=0;
+pendingJobs.forEach((job)=>{
+    const jobData=job.data;
+    if(jobData.type=='deposit' && jobData.account_id==parseInt(account_id)){
+        pendingDeposit+=jobData.amount || 0;
+    }
+    else if(jobData.type=='withdraw' && jobData.account_id==parseInt(account_id)){
+        pendingWithdraw+=jobData.amount || 0;
+    }
+});
+return pendingDeposit-pendingWithdraw;
+}
+
+module.exports={
+    transactionInQueue,
+    startQueueWorker
+}
